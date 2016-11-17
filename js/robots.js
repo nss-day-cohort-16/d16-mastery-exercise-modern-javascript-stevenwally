@@ -3,33 +3,42 @@
 //// Base robot function
 function Robot() {
 	this.name = null;
+	this.type = null;
+	this.model = null;
 	this.health = 100;
 	this.human = false;
 	this.robot = true;
 	this.grounded = null;
 	this.wings = null;
 	this.robogills = null;
+	this.damage = null;
 }
 
-//// 3 types of robots, each a prototype of the base Robot
+//// the 'Flyer' robot type
 function Flyer() {
+	this.model = null;
 	this.grounded = false;
 	this.wings = true;
 	this.robogills = false;
+	this.damage = 10;
 }
 Flyer.prototype = new Robot();
 
+//// the 'Walker' robot type
 function Walker() {
 	this.grounded = true;
 	this.wings = false;
 	this.robogills = false;
+	this.damage = 30;
 }
 Walker.prototype = new Robot();
 
+//// the 'Swimmer' robot type
 function Swimmer() {
 	this.grounded = false;
 	this.wings = false;
 	this.robogills = true;
+	this.damage = 50;
 }
 Swimmer.prototype = new Robot();
 
@@ -37,41 +46,28 @@ Robot.prototype.setName = function(name) {
 	this.name = name || "Anonymous Bot Fighter!";
 };
 
+Robot.prototype.setModel = function(model) {
+	this.model = model || "Unknown Bot Model!";
+};
+
 Robot.prototype.setHealth = function() {
 	if (this.grounded === true) {
-		this.health = this.health + 25;
+		this.health = Math.floor(Math.random() * ((this.health + 40) - this.health + 1)) + this.health;
 	} else if (this.wings === true) {
-		this.health = this.health + 10;
+		this.health = Math.floor(Math.random() * ((this.health + 15) - this.health + 1)) + this.health;
 	} else if (this.robogills === true) {
-		this.health = this.health - 15;
+		this.health = Math.floor(Math.random() * ((this.health - 20) - this.health + 1)) + this.health;
 	}
 };
 
-Flyer.prototype.setHealth();
+// Flyer.prototype.setHealth();
 // Walker.setHealth();
 // Swimmer.setHealth();
 
-// console.log("Swimmer", Swimmer());
-// console.log("Walker", Walker());
-// console.log("Flyer", Flyer());
-// console.log("Robot", Robot());
-let newBot = new Robot();
-console.log("newBot", newBot);
 
-let newFlyer = new Flyer();
-newFlyer.setHealth();
-newFlyer.setName();
-console.log("newFlyer", newFlyer);
-
-let newWalker = new Walker();
-newWalker.setHealth();
-newWalker.setName();
-console.log("newWalker", newWalker);
+module.exports = {Robot, Flyer, Swimmer, Walker};
 
 
-let newSwimmer = new Swimmer();
-newSwimmer.setHealth();
-newSwimmer.setName();
-console.log("newSwimmer", newSwimmer);
 
-module.exports = Robot;
+
+

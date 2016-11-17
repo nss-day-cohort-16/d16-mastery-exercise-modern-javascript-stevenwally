@@ -1,24 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="styles/styles.css">
   <title>||BATTL3D0M3||</title>
-  <link rel="stylesheet" type="text/styles" href="styles/styles.css">
 </head>
 <body>
-  <h1>||BATTL3D0M3||</h1>
+  <h1>||BATTLEDOME||</h1>
 <div id="bot-maker">
-<!-- INPUT FOR ROBOT NAMES -->
-  <input id="player-one" type="text" placeholder="Robot 1">
-  <input id="player-two" type="text" placeholder="Robot 2">
-<!-- SELECT ELEMENT FOR ROBOT TYPES -->
-  <select id="dropdown">
-    <option id="pick-one" value="pick-one">Bot Types:</option>
-    <option id="flyer" value="flyer">Flyer</option>
-    <option id="walker" value="walker">Walker</option>
-    <option id="swimmer" value="swimmer">Swimmer</option>
+<!-- ROBOT #1 SETTER -->
+  <div id="robot-one">
+    <input id="player-one" type="text" placeholder="Robot 1">
+    <button id="set-one">Set Name</button>
+    <select id="drop-one">
+      <option class="pick-one" value="pick-one">Bots:</option>
+      <option class="albatro$$" value="albatro$$">albatro$$</option>
+      <option class="g00se" value="g00se">g00se</option>
+      <option class="p3gl3g" value="p3gl3g">p3gl3g</option>
+      <option class="flintst0ne" value="flintst0ne">flintst0ne</option>
+      <option class="n3m0" value="n3m0">n3m0</option>
+      <option class="ne$$ie" value="ne$$ie">ne$$ie</option>
+    </select>
+  </div>
+<!-- ROBOT #2 SETTER -->
+  <div id="robot-two">
+    <input id="player-two" type="text" placeholder="Robot 2">
+    <button id="set-two">Set Name</button>
+    <select id="drop-two">
+      <option class="pick-two" value="pick-two">Bots:</option>
+      <option class="albatro$$" value="albatro$$">albatro$$</option>
+      <option class="g00se" value="g00se">g00se</option>
+      <option class="p3gl3g" value="p3gl3g">p3gl3g</option>
+      <option class="flintst0ne" value="flintst0ne">flintst0ne</option>
+      <option class="n3m0" value="n3m0">n3m0</option>
+      <option class="ne$$ie" value="ne$$ie">ne$$ie</option>
+    </select>
+  </div>
 <!-- FIGHT BUTTON -->
-  <input id="fight-button" type="button" value="FIGHT">
+  <button id="fight-button">FIGHT</button>
 </div>
+<div id="battleground">
+  <div id="battle-one">
+    <h2 id="battle-header-one"></h2>
+    <h3 id="battle-model-one"></h3>
+    <h3 id="battle-type-one"></h3>
+  </div>
+  <div id="battle-two">
+    <h2 id="battle-header-two"></h2>
+    <h3 id="battle-model-two"></h3>
+    <h3 id="battle-type-two"></h3>
+  </div>
+</div>
+<!-- JQUERY CDN -->
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<!-- LOCAL SCRIPTS -->
 <script src="dist/quiz.js"></script>
 </body>
 </html>

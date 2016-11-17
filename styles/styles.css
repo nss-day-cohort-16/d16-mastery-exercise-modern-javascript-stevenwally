@@ -1,3 +1,86 @@
+body {
+  background: #260101;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #F2F2F2;
+  font-size: 10px;
+  box-sizing: border-box; }
 
+h1 {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  font-size: 6em;
+  letter-spacing: .15em;
+  text-align: center; }
+
+h2 {
+  font-weight: 200;
+  font-size: 3em; }
+
+h3 {
+  font-weight: 200;
+  font-size: 2em; }
+
+#robot-one,
+#robot-two {
+  display: inline-block;
+  width: 40%;
+  box-sizing: border-box; }
+
+#robot-one {
+  margin-left: 18%; }
+
+#fight-button {
+  background-color: #590202;
+  color: #F2F2F2;
+  width: 6em;
+  font-size: 3em;
+  display: block;
+  margin: 0 auto; }
+
+button {
+  display: block; }
+
+input[type=text] {
+  display: block;
+  background-color: #F2F2F2;
+  color: #260101;
+  border: solid 3px #575A59;
+  font-size: 2.5em; }
+
+#set-one,
+#set-two {
+  margin-left: 16%;
+  margin-top: .25em;
+  background-color: #F2F2F2;
+  color: #260101;
+  border: solid 3px #575A59;
+  font-size: 1.75em; }
+
+#drop-one,
+#drop-two {
+  margin-left: 15%;
+  margin-top: .25em;
+  background-color: #F2F2F2;
+  color: #260101;
+  border: solid 3px #575A59;
+  font-size: 1.75em; }
+
+#battleground {
+  width: 75%;
+  margin: 2em auto; }
+
+#battle-one,
+#battle-two {
+  display: inline-block;
+  padding: 1em;
+  width: 40%; }
+
+#battle-one {
+  margin-left: 2%;
+  margin-right: 8%; }
+
+.battle-border {
+  border: solid 2px #575A59;
+  background-color: #580202; }
 
 /*# sourceMappingURL=styles.css.map */

@@ -11,7 +11,7 @@ function Robot() {
 	this.grounded = null;
 	this.wings = null;
 	this.robogills = null;
-	this.damage = null;
+	this.damage = 15;
 }
 
 //// the 'Flyer' robot type
@@ -20,7 +20,7 @@ function Flyer() {
 	this.grounded = false;
 	this.wings = true;
 	this.robogills = false;
-	this.damage = 10;
+	this.weapon = ['goosebombs', 'iron beak'];
 }
 Flyer.prototype = new Robot();
 
@@ -29,7 +29,7 @@ function Walker() {
 	this.grounded = true;
 	this.wings = false;
 	this.robogills = false;
-	this.damage = 30;
+	this.weapon = ['truthbombs', 'frisbee of death'];
 }
 Walker.prototype = new Robot();
 
@@ -38,7 +38,7 @@ function Swimmer() {
 	this.grounded = false;
 	this.wings = false;
 	this.robogills = true;
-	this.damage = 50;
+	this.weapon = ['waterblade', 'aquabombs'];
 }
 Swimmer.prototype = new Robot();
 
@@ -60,10 +60,35 @@ Robot.prototype.setHealth = function() {
 	}
 };
 
-// Flyer.prototype.setHealth();
-// Walker.setHealth();
-// Swimmer.setHealth();
+Flyer.prototype.setDamage = function(model) {
+	if (model === 'albatro$$') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 5) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	} else if (model === 'g00se') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 3) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	}
+};
 
+Walker.prototype.setDamage = function(model) {
+	if (model === 'p3gl3g') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 7) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	} else if (model === 'flintst0ne') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 10) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	}
+};
+
+Swimmer.prototype.setDamage = function(model) {
+	if (model === 'n3m0') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 6) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	} else if (model === 'ne$$ie') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 8) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	}
+};
 
 module.exports = {Robot, Flyer, Swimmer, Walker};
 

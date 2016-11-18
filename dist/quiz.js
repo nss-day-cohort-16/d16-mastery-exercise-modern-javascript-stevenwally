@@ -5,32 +5,18 @@ let Robots = require('./robots.js');
 let robotOne;
 let robotTwo;
 
-///// Setting Robot #1's name via user text input
-$('#set-one').click( () => {
-	robotOne = new Robots.Robot();
-	robotOne.setName($('#player-one').val());
-	console.log("robotOne", robotOne);
-});
-
-///// Setting Robot #2's name via user text input
-$('#set-two').click( () => {
-	robotTwo = new Robots.Robot();
-	robotTwo.setName($('#player-two').val());
-	console.log("robotTwo", robotTwo);
-});
-
-///// Setting Robot #1's type via dropdown menu
+///// Setting Robot #1's type + name via dropdown menu
 $('#drop-one').change( () => {
 	let modelChosen = $(event.target).val();
 	if ($(event.target).val() === 'albatro$$' || $(event.target).val() === 'g00se') {
 		robotOne = new Robots.Flyer();
-		buildStats(robotOne, $('#player-one').val(), modelChosen);
+		buildBotOne(robotOne, $('#player-one').val(), modelChosen);
 	} else if ($(event.target).val() === 'p3gl3g' || $(event.target).val() === 'flintst0ne') {
 		robotOne = new Robots.Walker();
-		buildStats(robotOne, $('#player-one').val(), modelChosen);
+		buildBotOne(robotOne, $('#player-one').val(), modelChosen);
 	} else if ($(event.target).val() === 'n3m0' || $(event.target).val() === 'ne$$ie') {
 		robotOne = new Robots.Swimmer();
-		buildStats(robotOne, $('#player-one').val(), modelChosen);
+		buildBotOne(robotOne, $('#player-one').val(), modelChosen);
 	}
 	showRobotOne();
 });
@@ -40,14 +26,13 @@ $('#drop-two').change( () => {
 	let modelChosen = $(event.target).val();
 	if ($(event.target).val() === 'albatro$$' || $(event.target).val() === 'g00se') {
 		robotTwo = new Robots.Flyer();
-		buildStats(robotTwo, $('#player-two').val(), modelChosen);
+		buildBotTwo(robotTwo, $('#player-two').val(), modelChosen);
 	} else if ($(event.target).val() === 'p3gl3g' || $(event.target).val() === 'flintst0ne') {
 		robotTwo = new Robots.Walker();
-		buildStats(robotTwo, $('#player-two').val(), modelChosen);
+		buildBotTwo(robotTwo, $('#player-two').val(), modelChosen);
 	} else if ($(event.target).val() === 'n3m0' || $(event.target).val() === 'ne$$ie') {
 		robotTwo = new Robots.Swimmer();
-		buildStats(robotTwo, $('#player-two').val(), modelChosen);
-		// console.log(robotTwo.prototype.name);
+		buildBotTwo(robotTwo, $('#player-two').val(), modelChosen);
 	}
 	showRobotTwo();
 });
@@ -55,25 +40,27 @@ $('#drop-two').change( () => {
 $('#fight-button').click(robotFight);
 
 ///// Function building robot stats (Health, name, etc.)
-function buildStats(bot, name, model) {
+function buildBotTwo(bot, name, model) {
 	bot.setHealth();
 	bot.setName(name);
 	bot.setModel(model);
-	console.log("robotOne", robotOne);
-	console.log("robotTwo", robotTwo);
+	bot.setDamage(model);
+}
+
+function buildBotOne(bot, name, model) {
+	bot.setHealth();
+	bot.setName(name);
+	bot.setModel(model);
+	bot.setDamage(model);
 }
 
 function updateHealth(bot1, bot2) {
 	if (robotOne.health <= 0) {
-		alert(`${robotTwo.name} wins!`);
-		console.log("robot 2 wins");
+		alert(`${robotTwo.name} wins with his/her ${robotTwo.weapon}!`);
 		$('#battle-type-one').html(`Health: 0`);
-		// $('#battle-type-two').html(`Health: ${robotTwo.health}`);
 	} else if (robotTwo.health <= 0) {
-		console.log("robot 1 wins");
-		$('#battle-type-one').html(`Health: ${robotOne.health}`);
-		$('#battle-type-two').html(`Health: ${robotTwo.health}`);
-		alert(`${robotOne.name} wins!`);
+		$('#battle-type-two').html(`Health: 0`);
+		alert(`${robotOne.name} wins with his/her ${robotOne.weapon}!`);
 	} else {
 		$('#battle-type-one').html(`Health: ${robotOne.health}`);
 		$('#battle-type-two').html(`Health: ${robotTwo.health}`);
@@ -96,13 +83,12 @@ function showRobotTwo() {
 	$('#battle-type-two').html(`Health: ${robotTwo.health}`);
 }
 
+///// Function for fight: subtracting from health based on damage points.
 function robotFight() {
 	robotOne.health = robotOne.health - robotTwo.damage;
 	robotTwo.health = robotTwo.health - robotOne.damage;
 	updateHealth();
 }
-
-
 },{"./robots.js":2}],2:[function(require,module,exports){
 "use strict";
 
@@ -117,7 +103,7 @@ function Robot() {
 	this.grounded = null;
 	this.wings = null;
 	this.robogills = null;
-	this.damage = null;
+	this.damage = 15;
 }
 
 //// the 'Flyer' robot type
@@ -126,7 +112,7 @@ function Flyer() {
 	this.grounded = false;
 	this.wings = true;
 	this.robogills = false;
-	this.damage = 10;
+	this.weapon = ['goosebombs', 'iron beak'];
 }
 Flyer.prototype = new Robot();
 
@@ -135,7 +121,7 @@ function Walker() {
 	this.grounded = true;
 	this.wings = false;
 	this.robogills = false;
-	this.damage = 30;
+	this.weapon = ['truthbombs', 'frisbee of death'];
 }
 Walker.prototype = new Robot();
 
@@ -144,7 +130,7 @@ function Swimmer() {
 	this.grounded = false;
 	this.wings = false;
 	this.robogills = true;
-	this.damage = 50;
+	this.weapon = ['waterblade', 'aquabombs'];
 }
 Swimmer.prototype = new Robot();
 
@@ -166,10 +152,35 @@ Robot.prototype.setHealth = function() {
 	}
 };
 
-// Flyer.prototype.setHealth();
-// Walker.setHealth();
-// Swimmer.setHealth();
+Flyer.prototype.setDamage = function(model) {
+	if (model === 'albatro$$') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 5) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	} else if (model === 'g00se') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 3) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	}
+};
 
+Walker.prototype.setDamage = function(model) {
+	if (model === 'p3gl3g') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 7) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	} else if (model === 'flintst0ne') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 10) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	}
+};
+
+Swimmer.prototype.setDamage = function(model) {
+	if (model === 'n3m0') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 6) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[0];
+	} else if (model === 'ne$$ie') {
+		this.damage = Math.floor(Math.random() * ((this.damage + 8) - this.damage + 1)) + this.damage;
+		this.weapon = this.weapon[1];
+	}
+};
 
 module.exports = {Robot, Flyer, Swimmer, Walker};
 
